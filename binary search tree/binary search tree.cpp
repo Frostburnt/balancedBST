@@ -4,17 +4,59 @@
 #include <iostream>
 
 
-struct node {
-    node* left = NULL;
-    node* right = NULL;
-    float key;
+struct Node {
+    Node* left = NULL;      //smaller child
+    Node* right = NULL;     //bigger child
+    float key;              //value
+
+    Node(float value) {
+        key = value;
+    }
+  
+
+
 };
 
 struct BST {
-    node* head;
+    Node* head;
+    BST(Node node) {
+        head = Node;
+    }
+    BST() {};
+    void insert(Node node) {
 
+    }
+    void remove(float value) {
+
+    }
+    Node successor(Node* node) {
+
+    }
+    Node predecessor(Node * node) {
+
+    }
+    Node max() {
+
+    }
+    Node min() {
+
+    }
 };
 
+Node max(Node node) {
+    Node working = node
+    while (working.right != NULL) {
+        working = working.right
+    }
+    return working;
+}
+Node min() {
+
+}
+
+Node* BSearch(Node* root, float key){
+
+}
 
 int main()
 {
