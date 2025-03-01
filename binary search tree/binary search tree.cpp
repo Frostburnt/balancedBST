@@ -1,5 +1,4 @@
-// binary search tree.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+
 
 #include <iostream>
 
@@ -7,69 +6,67 @@
 struct Node {
     Node* left = NULL;      //smaller child
     Node* right = NULL;     //bigger child
+    //Node* parent = NULL;    //
     float key;              //value
 
     Node(float value) {
         key = value;
     }
-  
-
-
 };
 
-struct BST {
+struct BST {                //member functions need to be filled out
     Node* head;
-    BST(Node node) {
-        head = Node;
+    BST(Node *node) {
+        head = node;
     }
-    BST() {};
+    
     void insert(Node node) {
 
     }
     void remove(float value) {
 
     }
-    Node successor(Node* node) {
-
+    Node* successor(Node* node) {
+        return NULL;
     }
-    Node predecessor(Node * node) {
-
+    Node* predecessor(Node * node) {
+        return NULL;
     }
-    Node max() {
 
-    }
-    Node min() {
-
-    }
 };
 
-Node max(Node node) {
-    Node working = node
-    while (working.right != NULL) {
-        working = working.right
+Node* nMax(Node* node) {                 //returns the right most node, which will be the highest value node
+    Node *working = node;
+    while (working->right != NULL) {
+        working = working->right;
     }
     return working;
 }
-Node min() {
-
+Node* nMin(Node* node) {                 //returns the lowest left side node, which will be the lowest value
+    Node* working = node;
+    while (working->left != NULL) {
+        working = working->left;
+    }
+    return working;
 }
 
 Node* BSearch(Node* root, float key){
-
+    return NULL;
+}
+unsigned int nSize(Node node){      //returns the size of the sub-tree at this node, inclusive
+    unsigned int total = 1;            
+    if (node.left != NULL)
+        total += nSize(*node.left);
+    if (node.right != NULL)
+        total += nSize(*node.right);
+    return total;
 }
 
-int main()
-{
-    std::cout << "Hello World!\n";
+Node onlyNode(3.43f);
+BST test(&onlyNode);
+
+
+int main(){
+    std::cout << test.head->key;
+    
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
