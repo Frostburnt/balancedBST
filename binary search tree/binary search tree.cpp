@@ -6,7 +6,15 @@
 #include <iostream>
 #include "node.h"
 #include "bst.h"
-//this is not the only file anymore, look at the others, should be reasonably commented
+//IMPORTANT. if you are looking from the discord link
+//this is NOT the only file anymore, look at the others, should be reasonably commented
+
+
+//it is best to download and run the sln file in the base directory, and look around, this is pretty extensively commented in the other files, mostly the CPP ones
+//structs ((classes that are all public by default)) are declared in headerfiles, and defined in CPP files. You might need to view both for context, 
+// this has heavy use of pointers as well, as a catch up. '->' is basically  used the same as '.' except it's for pointers so...
+//a thing that says node->key is essential just node.key if it was not a pointer
+//there is some mixing of stuff here where I probably could have avoided a pointer, or done a const reference, but that's not too important
 
 
 Node onlyNode(3.43f);

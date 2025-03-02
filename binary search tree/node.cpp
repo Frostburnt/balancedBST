@@ -2,9 +2,9 @@
 #include "node.h"
 
 
-    Node::Node(float value) {
-        key = value;
-    }
+Node::Node(float value) {
+    key = value;
+}
 Node* nMax(Node* node) {                 //returns the right most node, which will be the highest value node
     Node* working = node;
     while (working->right != NULL) {
