@@ -7,7 +7,6 @@
     }
 
     void BST::insert(Node* node) {                   //we do this here for the first step of insertion so that the BST's is also represented
-
         head = insertHelper(head, node);        //then we treaat subsequent nodes as if they are heads to other binary search trees
     }
     Node* BST::insertHelper(Node* root, Node* node) {    //I used "root" instead of "head" here to avoid confusion with the Tree's head, and the current sub-trees head
@@ -23,11 +22,11 @@
         }
         return root;
     }
-    void BST::displayHelper(const Node* root) {
-        if (root != NULL) {
-            displayHelper(root->left);
-            std::cout << "->" << root->key;
-            displayHelper(root->right);
+    void BST::displayHelper(const Node* root) {         //traverse the list in sorted order
+        if (root != NULL) {                             //first we go all the way left to get the lowest number, then we work our way back up
+            displayHelper(root->left);                  //printing the value each time, and recursively calling into the right side as well on the asscent
+            std::cout << "->" << root->key;             
+            displayHelper(root->right);                 
         }
     }
     void BST::display(std::string text) {
@@ -70,14 +69,14 @@
         return root;
     }
     float BST::successor(Node* root) {   //check this for pointer fuckery        seems fine
-        root = root->right;
+        root = root->right;              
         root = nMin(root);
         return root->key;
     }
     float BST::predecessor(Node* root) {
         root = root->left;
         root = nMax(root);
-        return root->key;
+        return root->key; 
 
     }
     bool BST::search(float value) {
