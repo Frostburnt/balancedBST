@@ -6,7 +6,7 @@
 #include <iostream>
 #include "node.h"
 #include "bst.h"
-
+//this is not the only file anymore, look at the others, should be reasonably commented
 
 
 Node onlyNode(3.43f);
