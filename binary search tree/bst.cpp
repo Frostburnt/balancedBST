@@ -1,6 +1,7 @@
 #include <iostream>
 #include "node.h"
 #include "bst.h"
+
     //you will note, there is often a very simple pattern, atleast before including the balanced function of if smaller go left, if bigger go right (or inverse depending on comparison order
     //this commenting might be a bit extreme, but it's for a project, so it might be good to keep for explaining
 
@@ -8,9 +9,115 @@ BST::BST(Node * node) {
     head = node;
 }
 
+
 void BST::insert(Node* node) {                   //we do this here for the first step of insertion so that the BST's is also represented
     head = insertHelper(head, node);        //then we treaat subsequent nodes as if they are heads to other binary search trees
 }
+void BST::sgInsert(Node* node) {            //want to re-implement this rercusively
+    if (head == NULL) {
+        head = node;
+        return;
+    }
+    Node* currentNode = head;
+    Node* potentialParent = head;
+    while (currentNode != NULL) {//stepping through tree iteratively
+        potentialParent = currentNode;
+        if (node->key < currentNode->key) {
+            currentNode = currentNode->left;
+        }
+        else {
+            currentNode = currentNode->right;
+        }
+    }
+    
+    node->parent = potentialParent;
+    if (node->key < node->parent->key) {
+        node->parent->left = node;
+    }
+    else {
+        node->parent->right = node;
+    }
+
+    node->left = NULL;
+    node->right = NULL;
+    size += 1;
+    Node* scapegoat = findScapegoat(node);
+   
+    if (scapegoat == NULL)
+        return;
+    Node* temp = scapegoat->parent;
+    scapegoat = rebalance(scapegoat);   //this will remove the parent from the scape goat, so we will need to re-add it
+    scapegoat->parent = temp;
+        
+
+
+}
+bool BST::isBalancedAtNode(Node* root){//checks with balancing factor
+    int RightSize = nSize(root->left);
+    int LeftSize = nSize(root->right);
+    int SubTreeSize = RightSize + LeftSize + 1;
+    if (RightSize > (balanceFactor * SubTreeSize) || LeftSize > (balanceFactor * SubTreeSize)){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+Node* BST::findScapegoat(Node* root) {
+    if (root == head) {
+        return NULL;
+    }
+    while (isBalancedAtNode(root)) { //check if our tree is balanced, going up til we reach the top
+        if (root == head) {
+            return NULL;
+        }
+        root = root->parent;
+    }
+    
+    return root;
+}
+Node* BST::rebalance(Node* root) {//we put all the nodes into a vector in order, then we put them all back into the tree recursively
+    std::vector<Node*>flattened;
+    
+    flatten(root, &flattened);
+    for (int i = 0; i < flattened.size(); i++) {//as I am using pointers instead of values I'm erasing the relationships
+        Node* a = flattened[i];
+        a->left = NULL;
+        a->right = NULL;
+        a->parent = NULL;
+    }
+    return buildTreeFromVector(flattened, 0, flattened.size() - 1);
+    
+}
+void BST::flatten(Node* node, std::vector<Node*>* vec) {//puts every node into a vector vec
+    if (node == NULL) {
+        return;
+    }
+    flatten(node->left, vec);
+    vec->push_back(node);
+    flatten(node->right, vec);
+    
+}
+Node* BST::buildTreeFromVector(const std::vector<Node*> flattened, int start, int end, Node* newParent) {
+    if (start > end) {
+        return NULL;
+    }
+    int mid = start + (end - start) / 2 + (end - start) % 2;
+    Node* thisNode = flattened[mid];
+    thisNode->parent = newParent;               
+    thisNode->left = buildTreeFromVector(flattened, start, mid - 1, thisNode);
+    thisNode->left = buildTreeFromVector(flattened, mid+1, end, thisNode);
+    return thisNode;
+
+
+
+
+}
+
+
+
+
+
 Node* BST::insertHelper(Node* root, Node* node) {    //I used "root" instead of "head" here to avoid confusion with the Tree's head, and the current sub-trees head
     float key = node->key;                      //this
     if (root == NULL) {

@@ -17,6 +17,8 @@
 //there is some mixing of stuff here where I probably could have avoided a pointer, or done a const reference, but that's not too important
 
 
+//limitations: this uses pointers to already existing objects instead of creating new Nodes via entering a value
+
 Node onlyNode(3.43f);
 BST test(&onlyNode);
 
@@ -25,9 +27,9 @@ int main(){
     Node a(5.3);
     Node b(4.3);
     Node c(30.3);
-    test.insert(&a);
-    test.insert(&b);
-    test.insert(&c);
+    test.sgInsert(&a);
+    test.sgInsert(&b);
+    test.sgInsert(&c);
     test.display();
     test.remove(4.3);
     test.display();
