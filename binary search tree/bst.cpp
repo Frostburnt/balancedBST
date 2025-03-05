@@ -62,8 +62,12 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
 
 }
 bool BST::isBalancedAtNode(Node* root){//checks with balancing factor
-    int RightSize = nSize(root->left);
-    int LeftSize = nSize(root->right);
+    if (root != NULL) {
+        return true;
+    }
+    Node check = *root;
+    int RightSize = nSize(*check.left);
+    int LeftSize = nSize(*check.right);
     int SubTreeSize = RightSize + LeftSize + 1;
     if (RightSize > (balanceFactor * SubTreeSize) || LeftSize > (balanceFactor * SubTreeSize)){
         return false;

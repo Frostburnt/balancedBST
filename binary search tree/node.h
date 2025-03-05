@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 struct Node {
     Node* left = NULL;      //smaller child
     Node* right = NULL;     //bigger child
@@ -11,4 +13,4 @@ struct Node {
 };
 Node* nMax(Node* node);  //returns the right most node, which will be the highest value node
 Node* nMin(Node* node);  //returns the lowest left side node, which will be the lowest value
-unsigned int nSize(Node* node);
+unsigned int nSize(const Node node);
