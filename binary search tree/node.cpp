@@ -31,6 +31,3 @@ unsigned int nSize(Node *node){          //returns the size of the sub-tree at t
         total += nSize(node->right);    //and right branch's totals too
     return total;
 }
-int log32(int nodesintree) {   //log can be used in depth queries as 
-    return (int)(log(nodesintree) / log(1.5));
-}

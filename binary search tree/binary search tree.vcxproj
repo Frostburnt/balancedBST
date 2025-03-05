@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="binary search tree.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="bst.cpp" />
     <ClCompile Include="node.cpp" />
   </ItemGroup>

@@ -48,7 +48,16 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
     Node* temp = scapegoat->parent;
     scapegoat = rebalance(scapegoat);   //this will remove the parent from the scape goat, so we will need to re-add it
     scapegoat->parent = temp;
-        
+    if(scapegoat->parent != NULL){
+        if (scapegoat->key < temp->key) {
+            scapegoat->left = scapegoat;
+        }
+        else {  
+            scapegoat->right = scapegoat;
+           }
+    }
+
+    
 
 
 }
@@ -106,7 +115,7 @@ Node* BST::buildTreeFromVector(const std::vector<Node*> flattened, int start, in
     Node* thisNode = flattened[mid];
     thisNode->parent = newParent;               
     thisNode->left = buildTreeFromVector(flattened, start, mid - 1, thisNode);
-    thisNode->left = buildTreeFromVector(flattened, mid+1, end, thisNode);
+    thisNode->right = buildTreeFromVector(flattened, mid+1, end, thisNode);
     return thisNode;
 
 

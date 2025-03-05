@@ -6,6 +6,7 @@
 #include <iostream>
 #include "node.h"
 #include "bst.h"
+#include <random>
 //IMPORTANT. if you are looking from the discord link
 //this is NOT the only file anymore, look at the others, should be reasonably commented
 
@@ -24,17 +25,18 @@ BST test(&onlyNode);
 
 
 int main(){
-    Node a(5.3);
-    Node b(4.3);
-    Node c(30.3);
-    test.sgInsert(&a);
-    test.sgInsert(&b);
-    test.sgInsert(&c);
+    srand(time(0));
+    const int arraySize = 15;
+    Node* nodeArray[arraySize];
+    for (int i = 0; i < arraySize; i++) {
+        nodeArray[i] = new Node( (float)rand()/(float)rand());
+    }
+    for (int i = 0; i < arraySize; i++) {
+        test.sgInsert(nodeArray[i]);
+    }
+    
     test.display();
-    test.remove(4.3);
-    test.display();
-    test.remove(5.3);
-    test.display();
+    
     std::cout << std::endl << test.search(5.3);
     std::cout << std::endl << test.search(2.3);
    // std::cout << test.head->key << std::endl;
