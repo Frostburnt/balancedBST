@@ -2,4 +2,9 @@
 C:\Users\tonje\Documents\GitHub\balancedBST\binary search tree\main.cpp(37,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Users\tonje\Documents\GitHub\balancedBST\binary search tree\main.cpp(99,43): warning C4305: 'argument': truncation from 'double' to 'float'
 C:\Users\tonje\Documents\GitHub\balancedBST\binary search tree\main.cpp(100,43): warning C4305: 'argument': truncation from 'double' to 'float'
-  binary search tree.vcxproj -> C:\Users\tonje\Documents\GitHub\balancedBST\x64\Debug\binary search tree.exe
+  Generating code
+  1 of 233 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  binary search tree.vcxproj -> C:\Users\tonje\Documents\GitHub\balancedBST\x64\Release\binary search tree.exe

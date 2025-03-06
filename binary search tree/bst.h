@@ -9,9 +9,9 @@
 struct BST {                //member functions need to be filled out
 
         Node* head;
-        int size;//not used in standard BST
+        int size = 1;//not used in standard BST
         int maxSize;
-        float balanceFactor = 0.75; //0.5 is perfectly balanced, 1 is completely imbalanced
+        float balanceFactor = 0.5f; //0.5 is perfectly balanced, 1 is completely imbalanced
 
         BST(Node* node = NULL);
         BST(float value);

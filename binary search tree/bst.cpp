@@ -37,15 +37,16 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
     else {
         node->parent->right = node;
     }
-
-    node->left = NULL;
-    node->right = NULL;
+   // std::cout << "test1" << std::endl;
+    //node->left = NULL;
+    //node->right = NULL;
     size += 1;
     Node* scapegoat = findScapegoat(node);
-   
+    //std::cout << "test2" << std::endl;
     if (scapegoat == NULL)
         return;
     Node* temp = scapegoat->parent;
+   // std::cout << "test3" << std::endl;
     scapegoat = rebalance(scapegoat);   //this will remove the parent from the scape goat, so we will need to re-add it
     scapegoat->parent = temp;
     if(scapegoat->parent != NULL){
@@ -62,17 +63,24 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
 
 }
 bool BST::isBalancedAtNode(Node* root){//checks with balancing factor
-    if (root != NULL) {
+    if (root == NULL) {
         return true;
     }
-    Node check = *root;
-    int RightSize = nSize(*check.left);
-    int LeftSize = nSize(*check.right);
-    int SubTreeSize = RightSize + LeftSize + 1;
+
+    int RightSize = 0;
+    int LeftSize = 0;
+    //const Node check = *root;
+    if (root->right != NULL)
+    RightSize = nSize(*root->right);
+    if (root->left != NULL)
+    LeftSize = nSize(*root->left);
+    const int SubTreeSize = RightSize + LeftSize + 1;
     if (RightSize > (balanceFactor * SubTreeSize) || LeftSize > (balanceFactor * SubTreeSize)){
         return false;
+        //std::cout << "false" << std::endl;
     }
     else {
+        //std::cout << "true" << std::endl;
         return true;
     }
 }
@@ -80,6 +88,7 @@ Node* BST::findScapegoat(Node* root) {
     if (root == head) {
         return NULL;
     }
+    //std::cout << "true" << std::endl;
     while (isBalancedAtNode(root)) { //check if our tree is balanced, going up til we reach the top
         if (root == head) {
             return NULL;
