@@ -1,5 +1,5 @@
 ﻿  main.cpp
-C:\Users\tonje\Documents\GitHub\balancedBST\binary search tree\main.cpp(37,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\tonje\Documents\GitHub\balancedBST\binary search tree\main.cpp(99,43): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\tonje\Documents\GitHub\balancedBST\binary search tree\main.cpp(100,43): warning C4305: 'argument': truncation from 'double' to 'float'
-  binary search tree.vcxproj -> C:\Users\tonje\Documents\GitHub\balancedBST\x64\Debug\binary search tree.exe
+C:\Users\jamton-4\Documents\GitHub\balancedBST\binary search tree\main.cpp(37,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\jamton-4\Documents\GitHub\balancedBST\binary search tree\main.cpp(99,43): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\jamton-4\Documents\GitHub\balancedBST\binary search tree\main.cpp(100,43): warning C4305: 'argument': truncation from 'double' to 'float'
+  binary search tree.vcxproj -> C:\Users\jamton-4\Documents\GitHub\balancedBST\x64\Debug\binary search tree.exe

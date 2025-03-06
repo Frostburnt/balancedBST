@@ -36,38 +36,38 @@ BST test(&firstNode);
 int main(){
     srand(time(0));
     
-    const int arraySize = 5000;
-    Node* nodeArray[arraySize];
+    const int arraySize = 30000;
+    Node* nodeArray = new Node[arraySize];
     for (int i = 0; i < arraySize; i++) {
-        nodeArray[i] = new Node( (float)rand());
+        nodeArray[i] = Node( (float)rand());
     }
 
-    std::ofstream File("SGT_Insertion.txt");
-    for (int i = 0; i < arraySize; i++) {//testing insert for SGT
-        auto start = std::chrono::high_resolution_clock::now();
-        test.sgInsert(nodeArray[i]);
-        auto end = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-        File << duration.count() << ";" << std::endl;
-    }
-    
-    {
-    auto start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < arraySize; i++)
-        test.search(nodeArray[i]->key);
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-    std::cout << duration.count() << std::endl;
-    }
+   std::ofstream File("SGT_Insertion.txt");
+   for (int i = 0; i < arraySize; i++) {//testing insert for SGT
+       auto start = std::chrono::high_resolution_clock::now();
+       test.sgInsert(&nodeArray[i]);
+       auto end = std::chrono::high_resolution_clock::now();
+       auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+       File << duration.count() << ";" << std::endl;
+   }
+   
+   {
+   auto start = std::chrono::high_resolution_clock::now();
+   for (int i = 0; i < arraySize; i++)
+       test.search(nodeArray[i].key);
+   auto end = std::chrono::high_resolution_clock::now();
+   auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+   std::cout << duration.count() << std::endl;
+   }
 
 
-    //test.display();
+   //test.display();
 
     File.close();
     for (int i = 0; i < arraySize; i++) {
-        nodeArray[i]->left = NULL;
-        nodeArray[i]->right = NULL;
-        nodeArray[i]->parent = NULL;
+        nodeArray[i].left = NULL;
+       nodeArray[i].right = NULL;
+        nodeArray[i].parent = NULL;
     }
     firstNode.left = NULL;
     firstNode.right = NULL;
@@ -75,7 +75,7 @@ int main(){
     std::ofstream File2("BST_Insertion.txt");
     for (int i = 0; i < arraySize; i++) {//testing insert for BST
         auto start = std::chrono::high_resolution_clock::now();
-        test.insert(nodeArray[i]);
+        test.insert(&nodeArray[i]);
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
         File2 << duration.count() << ";" << std::endl;
@@ -86,7 +86,7 @@ int main(){
     {
         auto start = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < arraySize; i++)
-            test.search(nodeArray[i]->key);
+            test.search(nodeArray[i].key);
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
         std::cout << duration.count() << std::endl;
@@ -98,8 +98,10 @@ int main(){
     
     std::cout << std::endl << test.search(5.3);
     std::cout << std::endl << test.search(2.3);
-   // std::cout << test.head->key << std::endl;
+    std::cout << test.head->key << std::endl;
     //std::cout << test.head->left->key << std::endl;
     //std::cout << test.head->right->key << std::endl;
     //my conclusion is, 
-}
+  
+    //delete[] nodeArray;
+} 

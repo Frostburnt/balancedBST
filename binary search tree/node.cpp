@@ -20,7 +20,7 @@ Node* nMin(Node* node) {                 //returns the lowest left side node, wh
     return working;
 }
 
-unsigned int nSize(const Node node){          //returns the size of the sub-tree at this node, inclusive. This is the "C variable" in the assigned task
+unsigned int nSize(Node const& node){          //returns the size of the sub-tree at this node, inclusive. This is the "C variable" in the assigned task
     
     unsigned int total = 1;
     if (node.left != NULL)
