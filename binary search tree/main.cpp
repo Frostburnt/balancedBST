@@ -36,7 +36,7 @@ BST test(&firstNode);
 int main(){
     srand(time(0));
     
-    const int arraySize = 50;
+    const int arraySize = 500000;
     Node* nodeArray = new Node[arraySize];
     for (int i = 0; i < arraySize; i++) {
         nodeArray[i] = Node( (float)rand());
@@ -57,7 +57,7 @@ int main(){
        test.search(nodeArray[i].key);
    auto end = std::chrono::high_resolution_clock::now();
    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-   std::cout << duration.count() << std::endl;
+   std::cout << std::endl << "Scapegoat search time" << duration.count() << std::endl;
    }
  
 
@@ -89,7 +89,7 @@ int main(){
             test.search(nodeArray[i].key);
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-        std::cout << duration.count() << std::endl;
+        std::cout << std::endl << "Standard BST search time" << duration.count() << std::endl;
     }
    /* for (int i = 0; i < arraySize; i++) {
         delete nodeArray[i];

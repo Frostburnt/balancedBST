@@ -47,16 +47,16 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
     //std::cout << "test2" << std::endl;
     if (scapegoat == NULL)
         return;
-    Node* temp = scapegoat->parent;
+    Node* tempp = scapegoat->parent;
    // std::cout << "test3" << std::endl;
     scapegoat = rebalance(scapegoat);   //this will remove the parent from the scape goat, so we will need to re-add it
-    scapegoat->parent = temp;
+    scapegoat->parent = tempp;
     if(scapegoat->parent != NULL){
-        if (scapegoat->key < temp->key) {
-            temp->left = scapegoat;
+        if (scapegoat->key < tempp->key) {
+            tempp->left = scapegoat;
         }
         else {  
-            temp->right = scapegoat;
+            tempp->right = scapegoat;
            }
     }
 
@@ -100,7 +100,7 @@ Node* BST::findScapegoat(Node* root) {
     //std::cout << "true" << std::endl;
     Node* temp = root;
     while (isBalancedAtNode(temp)) { //check if our tree is balanced, going up til we reach the top
-        if (root == head || temp->parent == NULL) {
+        if (temp == head || temp->parent == NULL) {
             return NULL;
         }
         else{
@@ -130,6 +130,7 @@ Node* BST::rebalance(Node* root) {//we put all the nodes into a vector in order,
             temp->parent->subTreeDepth += 1;
             temp = temp->parent;
         }
+
     }
     return result;
     
@@ -147,7 +148,7 @@ Node* BST::buildTreeFromVector(const std::vector<Node*> flattened, int start, in
     if (start > end) {
         return NULL;
     }
-    int mid = start + (end - start) / 2 + (end - start) % 2;
+    int mid = start + (end - start) / 2;
     Node* thisNode = flattened[mid];
     thisNode->parent = newParent;               
     thisNode->left = buildTreeFromVector(flattened, start, mid - 1, thisNode);
