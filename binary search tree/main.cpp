@@ -36,7 +36,7 @@ BST test(&firstNode);
 int main(){
     srand(time(0));
     
-    const int arraySize = 500000;
+    const int arraySize = 5000;
     Node* nodeArray = new Node[arraySize];
     for (int i = 0; i < arraySize; i++) {
         nodeArray[i] = Node( (float)rand());
