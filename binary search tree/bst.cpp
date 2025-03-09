@@ -14,14 +14,17 @@ void BST::insert(Node* node) {                   //we do this here for the first
     head = insertHelper(head, node);        //then we treaat subsequent nodes as if they are heads to other binary search trees
 }
 void BST::sgInsert(Node* node) {            //want to re-implement this rercusively
-    if (head == NULL) {
+    if (head == NULL) {                     
         head = node;
         return;
     }
     Node* currentNode = head;
     Node* potentialParent = head;
     while (currentNode != NULL) {//stepping through tree iteratively
+        
         potentialParent = currentNode;
+        potentialParent->subTreeDepth += 1;
+        //std::cout << "H" << head->subTreeDepth <<std::endl;
         if (node->key < currentNode->key) {
             currentNode = currentNode->left;
         }
@@ -31,16 +34,23 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
     }
     
     node->parent = potentialParent;
+
     if (node->key < node->parent->key) {
         node->parent->left = node;
     }
     else {
         node->parent->right = node;
     }
+
+
+
+
    // std::cout << "test1" << std::endl;
-    //node->left = NULL;
-    //node->right = NULL;
+    node->left = NULL;
+    node->right = NULL;
     size += 1;
+
+
     Node* scapegoat = findScapegoat(node);
     //std::cout << "test2" << std::endl;
     if (scapegoat == NULL)
@@ -51,10 +61,10 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
     scapegoat->parent = temp;
     if(scapegoat->parent != NULL){
         if (scapegoat->key < temp->key) {
-            scapegoat->left = scapegoat;
+            scapegoat->parent->left = scapegoat;
         }
         else {  
-            scapegoat->right = scapegoat;
+            scapegoat->parent->right = scapegoat;
            }
     }
 
@@ -62,6 +72,8 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
 
 
 }
+
+
 bool BST::isBalancedAtNode(Node* root){//checks with balancing factor
     if (root == NULL) {
         return true;
@@ -71,9 +83,12 @@ bool BST::isBalancedAtNode(Node* root){//checks with balancing factor
     int LeftSize = 0;
     //const Node check = *root;
     if (root->right != NULL)
-    RightSize = nSize(*root->right);
+        RightSize = root->right->subTreeDepth;
+        //std::cout << RightSize << std::endl;
     if (root->left != NULL)
-    LeftSize = nSize(*root->left);
+        LeftSize = root->left->subTreeDepth;
+        //std::cout << LeftSize << std::endl;
+
     const int SubTreeSize = RightSize + LeftSize + 1;
     if (RightSize > (balanceFactor * SubTreeSize) || LeftSize > (balanceFactor * SubTreeSize)){
         return false;
@@ -89,26 +104,37 @@ Node* BST::findScapegoat(Node* root) {
         return NULL;
     }
     //std::cout << "true" << std::endl;
+    Node* current = root;
     while (isBalancedAtNode(root)) { //check if our tree is balanced, going up til we reach the top
-        if (root == head) {
+        if (current == head) {
             return NULL;
         }
-        root = root->parent;
+        current = current->parent;
     }
     
     return root;
 }
 Node* BST::rebalance(Node* root) {//we put all the nodes into a vector in order, then we put them all back into the tree recursively
     std::vector<Node*>flattened;
-    
+    Node* result = NULL;
     flatten(root, &flattened);
     for (int i = 0; i < flattened.size(); i++) {//as I am using pointers instead of values I'm erasing the relationships
         Node* a = flattened[i];
         a->left = NULL;
         a->right = NULL;
         a->parent = NULL;
+        a->subTreeDepth = 0;
     }
-    return buildTreeFromVector(flattened, 0, flattened.size() - 1);
+
+    result = buildTreeFromVector(flattened, 0, flattened.size() - 1);
+    for (int i = 0; i < flattened.size(); i++) {
+        Node* currentNode = flattened[i]->parent;
+        while (currentNode != NULL){
+            currentNode->subTreeDepth += 1;
+            currentNode = currentNode->parent;
+        }
+    }
+    return result;
     
 }
 void BST::flatten(Node* node, std::vector<Node*>* vec) {//puts every node into a vector vec
@@ -129,6 +155,8 @@ Node* BST::buildTreeFromVector(const std::vector<Node*> flattened, int start, in
     thisNode->parent = newParent;               
     thisNode->left = buildTreeFromVector(flattened, start, mid - 1, thisNode);
     thisNode->right = buildTreeFromVector(flattened, mid+1, end, thisNode);
+    
+    
     return thisNode;
 
 
@@ -156,7 +184,7 @@ Node* BST::insertHelper(Node* root, Node* node) {    //I used "root" instead of 
 void BST::displayHelper(const Node* root) {         //traverse the list in sorted order
     if (root != NULL) {                             //first we go all the way left to get the lowest number, then we work our way back up
         displayHelper(root->left);                  //printing the value each time, and recursively calling into the right side as well on the asscent
-        std::cout << "->" << root->key;             
+        std::cout << "->" << root->key;
         displayHelper(root->right);                 
     }
 }

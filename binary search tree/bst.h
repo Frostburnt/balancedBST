@@ -11,7 +11,7 @@ struct BST {                //member functions need to be filled out
         Node* head;
         int size = 1;//not used in standard BST
         int maxSize;
-        float balanceFactor = 0.5f; //0.5 is perfectly balanced, 1 is completely imbalanced
+        float balanceFactor = 0.55f; //0.5 is perfectly balanced, 1 is completely imbalanced
 
         BST(Node* node = NULL);
         BST(float value);
@@ -30,7 +30,7 @@ struct BST {                //member functions need to be filled out
         Node* removeHelper(Node* root, float value);
         Node* insertHelper(Node* root, Node* node);
         //* sgInsertHelper(Node* root, Node* node);
-
+        
         void displayHelper(const Node* root);
         bool searchHelper(Node* root, float value);
         //these two find the best node to replace an empty

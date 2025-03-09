@@ -36,7 +36,7 @@ BST test(&firstNode);
 int main(){
     srand(time(0));
     
-    const int arraySize = 30000;
+    const int arraySize = 100000;
     Node* nodeArray = new Node[arraySize];
     for (int i = 0; i < arraySize; i++) {
         nodeArray[i] = Node( (float)rand());
@@ -61,7 +61,7 @@ int main(){
    }
 
 
-   //test.display();
+   test.display();
 
     File.close();
     for (int i = 0; i < arraySize; i++) {
@@ -94,7 +94,7 @@ int main(){
    /* for (int i = 0; i < arraySize; i++) {
         delete nodeArray[i];
     }
-    *///test.display();
+    *///
     
     std::cout << std::endl << test.search(5.3);
     std::cout << std::endl << test.search(2.3);
