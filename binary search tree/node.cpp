@@ -20,12 +20,12 @@ Node* nMin(Node* node) {                 //returns the lowest left side node, wh
     return working;
 }
 
-unsigned int nSize(Node const& node){          //returns the size of the sub-tree at this node, inclusive. This is the "C variable" in the assigned task
+int nSize(Node* node){          //returns the size of the sub-tree at this node, inclusive. This is the "C variable" in the assigned task
     
-    unsigned int total = 1;
-    if (node.left != NULL)
-        total += nSize(*node.left);     //and recursively takes the left branch
-    if (node.right != NULL)
-        total += nSize(*node.right);    //and right branch's totals too
+    int total = 1;
+    if (node->left != NULL)
+        total += nSize(node->left);     //and recursively takes the left branch
+    if (node->right != NULL)
+        total += nSize(node->right);    //and right branch's totals too
     return total;
 }

@@ -1,3 +1,3 @@
 ﻿  bst.cpp
-C:\Users\tonje\Documents\GitHub\balancedBST\binary search tree\bst.cpp(129,65): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  binary search tree.vcxproj -> C:\Users\tonje\Documents\GitHub\balancedBST\x64\Debug\binary search tree.exe
+C:\Users\tonje\Desktop\balancedBST-61b3f48a702e77e065580dee00f95cca7e71d8b6\binary search tree\bst.cpp(126,65): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  binary search tree.vcxproj -> C:\Users\tonje\Desktop\balancedBST-61b3f48a702e77e065580dee00f95cca7e71d8b6\x64\Debug\binary search tree.exe
