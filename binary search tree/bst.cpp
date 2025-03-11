@@ -8,11 +8,48 @@
 BST::BST(Node * node) {
     head = node;
 }
-
-
-void BST::insert(Node* node) {                   //we do this here for the first step of insertion so that the BST's is also represented
-    head = insertHelper(head, node);        //then we treaat subsequent nodes as if they are heads to other binary search trees
+BST::BST() {
+    head = NULL;
 }
+
+
+void BST::insert(Node* node) {                   //non recursive method instead
+    if (head == NULL) {
+        head = node;
+        
+        head->left = NULL;
+        head->right = NULL;
+        return;
+    }
+      
+    Node* currentNode = head;
+    Node* potentialParent = NULL;
+    while (currentNode != NULL) {//stepping through tree iteratively
+        currentNode->subTreeDepth += 1;
+        potentialParent = currentNode;
+        
+        if (node->key < currentNode->key) {
+            currentNode = currentNode->left;
+        }
+        else {
+            currentNode = currentNode->right;
+        }
+    }
+
+    node->parent = potentialParent;
+    if (node->key < node->parent->key) {
+        node->parent->left = node;
+    }
+    else {
+        node->parent->right = node;
+    }
+    node->left = NULL;
+    node->right = NULL;
+
+}
+
+
+
 void BST::sgInsert(Node* node) {            //want to re-implement this rercusively
     if (head == NULL) {
         head = node;
@@ -59,6 +96,9 @@ void BST::sgInsert(Node* node) {            //want to re-implement this rercusiv
             tempp->right = scapegoat;
            }
     }
+    else {
+        head = scapegoat;
+    }
 
     
 
@@ -80,8 +120,8 @@ bool BST::isBalancedAtNode(Node* root){//checks with balancing factor
     if (root->left != NULL){
         LeftSize = root->left->subTreeDepth;
     }
-    int SubTreeSize = RightSize + LeftSize + 1;
-    if (RightSize > (balanceFactor * SubTreeSize) || LeftSize > (balanceFactor * SubTreeSize)){
+    
+    if (RightSize > (balanceFactor * root->subTreeDepth) || LeftSize > (balanceFactor * root->subTreeDepth)){
         //std::cout << "Not balanced R" << RightSize << "L" << LeftSize << std::endl;
         return false;
         
@@ -94,23 +134,22 @@ bool BST::isBalancedAtNode(Node* root){//checks with balancing factor
     }
 }
 Node* BST::findScapegoat(Node* root) {
-    if (root == head) {
+    /*if (root == head) {
         return NULL;
-    }
+    }*/
     //std::cout << "true" << std::endl;
+    Node* scapegoat = NULL;
     Node* temp = root;
-    while (isBalancedAtNode(temp)) { //check if our tree is balanced, going up til we reach the top
-        if (temp == head || temp->parent == NULL) {
-            return NULL;
-        }
-        else{
-            temp = temp->parent;
-        }
+    while (temp!= NULL) { //check if our tree is balanced, going up til we reach the top
+        if (!isBalancedAtNode(temp)) {
+            scapegoat = temp;
+        }  
+        temp = temp->parent;
    
         
     }
     
-    return temp;
+    return scapegoat;
 }
 Node* BST::rebalance(Node* root) {//we put all the nodes into a vector in order, then we put them all back into the tree recursively
     std::vector<Node*>flattened;
@@ -164,23 +203,23 @@ Node* BST::buildTreeFromVector(const std::vector<Node*> flattened, int start, in
 
 
 
-Node* BST::insertHelper(Node* root, Node* node) {    //I used "root" instead of "head" here to avoid confusion with the Tree's head, and the current sub-trees head
-    float key = node->key;                      //this
-    if (root == NULL) {
-        return node;
-    }
-    else if (key < root->key) {                                 //we change where our current working root node is based on where it belongs, left or right
-        root->left = insertHelper(root->left, node);
-    }
-    else {
-        root->right = insertHelper(root->right, node);
-    }
-    return root;
-}
+//Node* BST::insertHelper(Node* root, Node* node) {    //I used "root" instead of "head" here to avoid confusion with the Tree's head, and the current sub-trees head
+//    float key = node->key;                      //this
+//    if (root == NULL) {
+//        return node;
+//    }
+//    else if (key < root->key) {                                 //we change where our current working root node is based on where it belongs, left or right
+//        root->left = insertHelper(root->left, node);
+//    }
+//    else {
+//        root->right = insertHelper(root->right, node);
+//    }
+//    return root;
+//}
 void BST::displayHelper(const Node* root) {         //traverse the list in sorted order
     if (root != NULL) {                             //first we go all the way left to get the lowest number, then we work our way back up
         displayHelper(root->left);                  //printing the value each time, and recursively calling into the right side as well on the asscent
-        std::cout << "->" << root->key;             
+        std::cout << root->subTreeDepth << "->" << root->key << std::endl;             
         displayHelper(root->right);                 
     }
 }

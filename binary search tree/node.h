@@ -7,7 +7,7 @@ struct Node {
     Node* parent = NULL;    //not using this in the standard BST
     //Node* parent = NULL;  //
     float key;              //value
-    int subTreeDepth;
+    int subTreeDepth = 0;
 
     Node(float value = 0);
     //Node* operator [](int i);

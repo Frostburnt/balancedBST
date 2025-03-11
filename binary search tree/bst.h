@@ -11,10 +11,10 @@ struct BST {                //member functions need to be filled out
         Node* head;
         int size = 1;//not used in standard BST
         int maxSize;
-        float balanceFactor = 0.5f; //0.5 is perfectly balanced, 1 is completely imbalanced
+        float balanceFactor = 0.75f; //0.5 is perfectly balanced, 1 is completely imbalanced
 
         BST(Node* node = NULL);
-        BST(float value);
+        BST();
         void insert(Node* node);//inerts an element into the tree at the correct sorted location
         void sgInsert(Node* node);//value insertion will be done for scape goat
         void display(std::string text = "Your binary search tree:");//prints out the entire tree, from smallest element to largest
